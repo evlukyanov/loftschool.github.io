@@ -89,8 +89,8 @@ function slice(array, from, to) {
       to = array.length + to;
   };
 
-  for (var i = from + 1; i < to + 1; i++){
-      newArr.push(i);
+  for (var i = from; i < to; i++){
+      newArr.push(arr[i]);
   };
 
   return newArr;
