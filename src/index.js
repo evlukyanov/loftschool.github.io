@@ -84,13 +84,16 @@ function slice(array, from, to) {
       from = 0;
   };
 
-
   if (to < 0) {
       to = array.length + to;
   };
 
+  if (from === undefined) {
+      newArr = array;
+  }
+
   for (var i = from; i < to; i++){
-      newArr.push(arr[i]);
+      newArr.push(array[i]);
   };
 
   return newArr;
