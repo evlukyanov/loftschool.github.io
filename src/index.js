@@ -50,9 +50,10 @@ function isAllTrue(array, fn) {
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
 function isSomeTrue(array, fn) {
-  if (typeof fn !== 'function') {throw new Error('fn is not a function');}
 
-  else if (!(Array.isArray(array)) || array.length === 0 || array === undefined) {throw new Error('empty array');}
+  if (!(Array.isArray(array)) || array.length === 0 || array === undefined) {throw new Error('empty array');}
+
+  else if (typeof fn !== 'function') {throw new Error('fn is not a function');}
 
   else {
 
@@ -127,9 +128,6 @@ function calculator(number = 0) {
   var object = {
     sum: function() {
       for (var i = 0; i < arguments.length; i++) {
-        if(arguments[i] === 0) {
-          throw new Error('division by 0');
-        }
         number += arguments[i];
       }
       return number;
@@ -137,9 +135,6 @@ function calculator(number = 0) {
 
     dif: function() {
       for (var i = 0; i < arguments.length; i++){
-        if(arguments[i] === 0){
-          throw new Error('division by 0');
-        }
         number = number - arguments[i];
       }
       return number;
@@ -157,9 +152,6 @@ function calculator(number = 0) {
 
     mul: function() {
       for (var i = 0; i < arguments.length; i++){
-        if(arguments[i] === 0) {
-          throw new Error('division by 0');
-        }
         number *=arguments[i];
       }
       return number;
