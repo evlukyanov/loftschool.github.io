@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>COOKIE</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="container">
+    
+    <div id="homework-container">
+        
+        <div id="filter-block">
+            Поиск cookie: <input type="text" id="filter-name-input" placeholder="имя cookie">
+        </div>
+        <hr>
+        <div id="add-block">
+            Добавить cookie:<br>
+            <input type="text" id="add-name-input" placeholder="имя cookie"><br>
+            <input type="text" id="add-value-input" placeholder="значение cookie"><br>
+            <button id="add-button">добавить cookie</button>
+        </div>
+        <hr>
+        <div id="list-block">
+            Доступные cookie:
+            <table id="list-table">
+                <thead>
+                <tr>
+                    <th>имя</th>
+                    <th>значение</th>
+                    <th>удалить</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- tr добавлять сюда -->
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+
+
+
+    <script src="js/main.js"></script>
+</body>
+</html>
