@@ -49,7 +49,7 @@ module.exports = class {
                     if (response.error) {
                         reject(new Error(response.error.msg));
                     } else {
-                        resolve(response);
+                        resolve(response.response);
                     }
                 });
             });

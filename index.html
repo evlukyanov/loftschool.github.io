@@ -10,8 +10,36 @@
     <!-- coustom styles -->
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="container">
-    <h1>friends filter</h1>
+<body>
+    <div class="frame">
+        <div class="header">
+            <p>Выберете друзей</p>
+            <div class="close"></div>
+        </div>
+
+        <div class="inputs">
+            <input class="leftInput" type="text" placeholder="Начните вводить имя друга">
+            <input class="rightInput" type="text" placeholder="Название">
+        </div>
+        
+        <div class="friendsArea">
+            <div class="allFriends">
+                <div class="allFriendsHeader"><p>Ваши друзья</p></div>
+                <div class="list">
+                    <div class="friend">
+                        <div class="imageAndName">
+                            <div class="image"></div>
+                            <div class="name"><p>Имя Фамилия</p></div>
+                        </div>
+                        <div class="add"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="selectedFriends">
+                <div class="selectedFriendsHeader"><p>Друзья в списке</p></div>
+            </div>
+        </div>
+    </div>
 
     <script src="dist/main.js"></script>
 </body>
