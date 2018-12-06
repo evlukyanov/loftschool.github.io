@@ -86,38 +86,36 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/MVC/model.js":
+/*!**************************!*\
+  !*** ./src/MVC/model.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = class {\r\n    constructor(api) {\r\n        this.apiVK = api;\r\n    }\r\n\r\n    get user() {\r\n        return this.apiVK.callApi('users.get', {fields: 'photo_100'}).then(response => response);\r\n    }\r\n\r\n    get friends() {\r\n        return this.apiVK.callApi('friends.get', {fields: 'first_name, last_name, photo_100'}).then(response => response);\r\n    }\r\n}\n\n//# sourceURL=webpack:///./src/MVC/model.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_some_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/some.js */ \"./src/modules/some.js\");\n\n\nconst first = __webpack_require__(/*! ./modules/first */ \"./src/modules/first.js\");\n\nconsole.log('hello');\nconsole.log(Object(_modules_some_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(1, 4, 8));\nfirst('text from first-module');\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("const VK    = __webpack_require__(/*! ./modules/api.vk */ \"./src/modules/api.vk.js\");\r\nconst Model = __webpack_require__(/*! ./MVC/model */ \"./src/MVC/model.js\");\r\n\r\nconst apiVK = new VK(6774126, 2);\r\nconst model = new Model(apiVK);\r\n\r\nconsole.log(model.friends);\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
-/***/ "./src/modules/first.js":
-/*!******************************!*\
-  !*** ./src/modules/first.js ***!
-  \******************************/
+/***/ "./src/modules/api.vk.js":
+/*!*******************************!*\
+  !*** ./src/modules/api.vk.js ***!
+  \*******************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = param => {\n  console.log(param);\n};\n\n//# sourceURL=webpack:///./src/modules/first.js?");
-
-/***/ }),
-
-/***/ "./src/modules/some.js":
-/*!*****************************!*\
-  !*** ./src/modules/some.js ***!
-  \*****************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nfunction sum(...numbers) {\n  let sum = 0;\n\n  for (let i = 0; i < numbers.length; i++) {\n    sum += numbers[i];\n  }\n\n  return sum;\n}\n\nfunction avg(...numbers) {\n  return sum(...numbers) / numbers.length;\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (avg);\n\n//# sourceURL=webpack:///./src/modules/some.js?");
+eval("module.exports = class {\r\n    constructor(apiID, params, version = 5.92) {\r\n        this.apiID   = apiID;\r\n        this.params  = params;\r\n        this.version = version;\r\n    }\r\n\r\n    connect() {\r\n        if(this.inited != this.apiID) {\r\n            VK.init({\r\n                apiId: this.apiID\r\n            });\r\n\r\n            this.inited = this.apiID;\r\n        }\r\n\r\n        return new Promise((resolve, reject) => {\r\n            VK.Auth.getLoginStatus((response) => {\r\n                if (response.status === 'connected') {\r\n                    resolve();\r\n                } else {\r\n                    reject(new Error('Не авторизован!'));\r\n                }\r\n            });\r\n        });\r\n    }\r\n\r\n    auth() {\r\n        return this.connect().catch(() => {\r\n            return new Promise((resolve, reject) => {\r\n                VK.Auth.login((resoponse) => {\r\n                    if (response.session) {\r\n                        resolve();\r\n                    } else {\r\n                        reject(new Error('Авторизация провалена!'));\r\n                    }\r\n                });\r\n            });\r\n        });\r\n    }\r\n\r\n    callApi(method, params) {\r\n        return this.auth().then(() => {\r\n            return new Promise((resolve, reject) => {\r\n                params = params || {};\r\n                params.v = this.version;\r\n\r\n                VK.Api.call(method, params, (response) => {\r\n                    if (response.error) {\r\n                        reject(new Error(response.error.msg));\r\n                    } else {\r\n                        resolve(response);\r\n                    }\r\n                });\r\n            });\r\n        });\r\n    }\r\n}\n\n//# sourceURL=webpack:///./src/modules/api.vk.js?");
 
 /***/ })
 

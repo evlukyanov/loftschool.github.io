@@ -1,6 +1,7 @@
-import avg from './modules/some.js';
-const first = require('./modules/first');
+const VK    = require('./modules/api.vk');
+const Model = require('./MVC/model');
 
-console.log('hello');
-console.log(avg(1, 4, 8));
-first('text from first-module');
+const apiVK = new VK(6774126, 2);
+const model = new Model(apiVK);
+
+console.log(model.friends);
