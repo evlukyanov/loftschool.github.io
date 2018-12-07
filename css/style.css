@@ -74,9 +74,6 @@ body {
 .allFriends {
     width: 100%;
     height: 100%;
-    /* display: flex; */
-    /* justify-content: flex-start; */
-    /* flex-wrap: wrap; */
     border-right: 1px solid #f0f0f0;
     background-color: white;
 }
@@ -108,13 +105,18 @@ body {
     border-bottom: 1px solid #f0f0f0;
 }
 
-.list {
+.listAll {
+    height: 325px;
+    overflow: scroll;
+}
+
+.listSelected {
     height: 325px;
     overflow: scroll;
 }
 
 .friend {
-    width: 280px;
+    width: 260px;
     height: 55px;
     margin-left: 20px;
     display: flex;
@@ -128,23 +130,35 @@ body {
 
 .imageAndName {
     display: flex;
+    align-items: center;
 }
 
 .image {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: yellow;
 }
 
 .name {
-    max-width: 100px;
+    margin-left: 10px;
 }
 
 .add {
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background-color: red;
+    background-color: green;
+    cursor: pointer;
+}
 
+.wrapperButton {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.wrapperButton button {
+    margin-right: 40px;
 }

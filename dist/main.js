@@ -86,36 +86,14 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/MVC/model.js":
-/*!**************************!*\
-  !*** ./src/MVC/model.js ***!
-  \**************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("module.exports = class {\r\n    constructor(api) {\r\n        this.apiVK = api;\r\n    }\r\n\r\n    get user() {\r\n        return this.apiVK.callApi('users.get', {fields: 'photo_100'}).then(response => response);\r\n    }\r\n\r\n    get friends() {\r\n        return this.apiVK.callApi('friends.get', {fields: 'first_name, last_name, photo_100'}).then(response => response);\r\n    }\r\n}\n\n//# sourceURL=webpack:///./src/MVC/model.js?");
-
-/***/ }),
-
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const VK    = __webpack_require__(/*! ./modules/api.vk */ \"./src/modules/api.vk.js\");\r\nconst Model = __webpack_require__(/*! ./MVC/model */ \"./src/MVC/model.js\");\r\n\r\nconst apiVK = new VK(6774126, 2);\r\nconst model = new Model(apiVK);\r\n\r\nconsole.log(model.friends);\n\n//# sourceURL=webpack:///./src/index.js?");
-
-/***/ }),
-
-/***/ "./src/modules/api.vk.js":
-/*!*******************************!*\
-  !*** ./src/modules/api.vk.js ***!
-  \*******************************/
-/*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = class {\r\n    constructor(apiID, params, version = 5.92) {\r\n        this.apiID   = apiID;\r\n        this.params  = params;\r\n        this.version = version;\r\n    }\r\n\r\n    connect() {\r\n        if(this.inited != this.apiID) {\r\n            VK.init({\r\n                apiId: this.apiID\r\n            });\r\n\r\n            this.inited = this.apiID;\r\n        }\r\n\r\n        return new Promise((resolve, reject) => {\r\n            VK.Auth.getLoginStatus((response) => {\r\n                if (response.status === 'connected') {\r\n                    resolve();\r\n                } else {\r\n                    reject(new Error('Не авторизован!'));\r\n                }\r\n            });\r\n        });\r\n    }\r\n\r\n    auth() {\r\n        return this.connect().catch(() => {\r\n            return new Promise((resolve, reject) => {\r\n                VK.Auth.login((resoponse) => {\r\n                    if (response.session) {\r\n                        resolve();\r\n                    } else {\r\n                        reject(new Error('Авторизация провалена!'));\r\n                    }\r\n                });\r\n            });\r\n        });\r\n    }\r\n\r\n    callApi(method, params) {\r\n        return this.auth().then(() => {\r\n            return new Promise((resolve, reject) => {\r\n                params = params || {};\r\n                params.v = this.version;\r\n\r\n                VK.Api.call(method, params, (response) => {\r\n                    if (response.error) {\r\n                        reject(new Error(response.error.msg));\r\n                    } else {\r\n                        resolve(response);\r\n                    }\r\n                });\r\n            });\r\n        });\r\n    }\r\n}\n\n//# sourceURL=webpack:///./src/modules/api.vk.js?");
+eval("VK.init({\r\n    apiId: 6774126\r\n});\r\n\r\nfunction auth() {\r\n    return new Promise((resolve, reject) => {\r\n        VK.Auth.login(data => {\r\n            if (data.session) {\r\n                resolve();\r\n            } else {\r\n                reject(new Error('Не удалось авторизоваться'));\r\n            }\r\n        }, 2);\r\n    });\r\n}\r\n\r\nauth().then(() => console.log('ok'));\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ })
 
