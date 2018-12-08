@@ -15,11 +15,7 @@ function callAPI(method, params) {
 
     return new Promise((resolve, reject) => {
         VK.api(method, params, (data) => {
-            if (data.error) {
-                reject(data.error);
-            } else {
-                resolve(data.response);
-            }
+            resolve(data.response);
         });
     });
 }
