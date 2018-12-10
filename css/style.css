@@ -36,7 +36,10 @@ body {
     height: 10px;
     margin-right: 20px;
     cursor: pointer;
-    background-color: red;
+    background-image: url(../img/closeDelete.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .inputs {
@@ -147,9 +150,22 @@ body {
 .add {
     width: 25px;
     height: 25px;
-    border-radius: 50%;
-    background-color: green;
+    /* border-radius: 50%; */
     cursor: pointer;
+}
+
+.listAll .add {
+    background-image: url(../img/add.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.listSelected .add {
+    background-image: url(../img/closeDelete.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .wrapperButton {
