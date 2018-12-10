@@ -1,36 +1,31 @@
 /*
  ДЗ 7 - Создать редактор cookie с возможностью фильтрации
-
  7.1: На странице должна быть таблица со списком имеющихся cookie. Таблица должна иметь следующие столбцы:
    - имя
    - значение
    - удалить (при нажатии на кнопку, выбранная cookie удаляется из браузера и таблицы)
-
  7.2: На странице должна быть форма для добавления новой cookie. Форма должна содержать следующие поля:
    - имя
    - значение
    - добавить (при нажатии на кнопку, в браузер и таблицу добавляется новая cookie с указанным именем и значением)
-
  Если добавляется cookie с именем уже существующией cookie, то ее значение в браузере и таблице должно быть обновлено
-
  7.3: На странице должно быть текстовое поле для фильтрации cookie
  В таблице должны быть только те cookie, в имени или значении которых, хотя бы частично, есть введенное значение
  Если в поле фильтра пусто, то должны выводиться все доступные cookie
  Если дабавляемая cookie не соответсвуте фильтру, то она должна быть добавлена только в браузер, но не в таблицу
  Если добавляется cookie, с именем уже существующией cookie и ее новое значение не соответствует фильтру,
  то ее значение должно быть обновлено в браузере, а из таблицы cookie должна быть удалена
-
  Запрещено использовать сторонние библиотеки. Разрешено пользоваться только тем, что встроено в браузер
  */
 
 /*
  homeworkContainer - это контейнер для всех ваших домашних заданий
  Если вы создаете новые html-элементы и добавляете их на страницу, то дабавляйте их только в этот контейнер
-
  Пример:
    const newDiv = document.createElement('div');
    homeworkContainer.appendChild(newDiv);
- */
+*/
+
 const homeworkContainer = document.querySelector('#homework-container');
 // текстовое поле для фильтрации cookie
 const filterNameInput = homeworkContainer.querySelector('#filter-name-input');
@@ -43,82 +38,82 @@ const addButton = homeworkContainer.querySelector('#add-button');
 // таблица со списком cookie
 const listTable = homeworkContainer.querySelector('#list-table tbody');
 
-filterNameInput.addEventListener('keyup', function() {
-    // здесь можно обработать нажатия на клавиши внутри текстового поля для фильтрации cookie
+filterNameInput.addEventListener('keyup', () => {
     searchCookie();
 });
 
 addButton.addEventListener('click', () => {
-    // здесь можно обработать нажатие на кнопку "добавить cookie"
+    document.cookie = `${addNameInput.value}=${addValueInput.value}`;
+
     searchCookie();
 });
 
 listTable.addEventListener('click', (e) => {
-  if (e.target.tagName === 'BUTTON') {
-      const row  = e.target.closest('tr');
-      const name = row.firstElementChild.textContent;
+    if (e.target.tagName === 'BUTTON') {
+        const row  = e.target.closest('tr');
+        const name = row.firstElementChild.textContent;
 
-      listTable.removeChild(row);
-      deleteCokie(name);
-  }
+        listTable.removeChild(row);
+        deleteCokie(name);
+    }
 });
 
 function getCookies() {
-  const cookies = document.cookie.split('; ').reduce((result, current) => {
-      const[name, value] = current.split('=');
-      result[name] = value;
-      return result;
-  }, {});
+    const cookies = document.cookie.split('; ').reduce((result, current) => {
+        const[name, value] = current.split('=');
+        result[name] = value;
+        return result;
+    }, {});
 
-  return cookies;
+    return cookies;
 }
 
 function deleteCokie(name) {
-  let zeroDate = new Date(0);
+    let zeroDate = new Date(0);
 
-  document.cookie = `${name}=;expires=${zeroDate.toUTCString()}`;
+    document.cookie = `${name}=;expires=${zeroDate.toUTCString()}`;
 }
 
 function renderTable(allCookies) {
-  listTable.innerHTML = '';
+    listTable.innerHTML = '';
 
-  for (const key in allCookies) {
-      let tr       = document.createElement('tr');
-      let tdKey    = document.createElement('td');
-      let tdValue  = document.createElement('td');
-      let button   = document.createElement('button');
+    for (const key in allCookies) {
+        let tr       = document.createElement('tr');
+        let tdKey    = document.createElement('td');
+        let tdValue  = document.createElement('td');
+        let button   = document.createElement('button');
 
-      button.textContent  = 'удалить';
-      tdValue.textContent = allCookies[key];
-      tdKey.textContent   = key;
-  
-      tr.appendChild(tdKey);
-      tr.appendChild(tdValue);
-      tr.appendChild(button);
-      listTable.appendChild(tr);
-  }
+        button.textContent  = 'удалить';
+        tdValue.textContent = allCookies[key];
+        tdKey.textContent   = key;
+    
+        tr.appendChild(tdKey);
+        tr.appendChild(tdValue);
+        tr.appendChild(button);
+        listTable.appendChild(tr);
+    }
 }
 
 function searchCookie() {
-  if (filterNameInput.value === '') {
-      let allCookies = getCookies();
+    if (filterNameInput.value === '') {
+        let allCookies = getCookies();
 
-      renderTable(allCookies);
-  } else {
-      isMatching();
-  }
+        renderTable(allCookies);
+    } else {
+        isMatching();
+    }
 };
 
 function isMatching() {
-  let filterValue = filterNameInput.value;
-  let allCookies  = getCookies();
-  let someCookies = {};
+    let filterValue = filterNameInput.value;
+    let allCookies  = getCookies();
+    let someCookies = {};
 
-  for (let key in allCookies) {
-      if (key.indexOf(filterValue) !== -1 || allCookies[key].indexOf(filterValue) !== -1) {
-          someCookies[key] = allCookies[key];
-      }
-  }
+    for (let key in allCookies) {
+        if (key.indexOf(filterValue) !== -1 || allCookies[key].indexOf(filterValue) !== -1) {
+            someCookies[key] = allCookies[key];
+        }
+    }
 
-  renderTable(someCookies);
+    renderTable(someCookies);
 };
