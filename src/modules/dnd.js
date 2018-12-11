@@ -22,20 +22,19 @@ function makeDnDInit(zones, listAll, listSelected, leftFriends, rightFriends) {
                         zone.insertBefore(currentDrag.node, zone.lastElementChild);
                     }
                 }
+                currentDrag = null; 
+            }
 
-                leftFriends.length = 0;
+            rightFriends.length = 0;
 
-                for (let i = 0; i < listAll.children.length; i++) {
-                    leftFriends.push(listAll.children[i]);
-                }
+            for (let i = 0; i < listSelected.children.length; i++) {
+                rightFriends.push(listAll.children[i]);
+            }
 
-                rightFriends.length = 0;
+            leftFriends.length = 0;
 
-                for (let i = 0; i < listSelected.children.length; i++) {
-                    rightFriends.push(listAll.children[i]);
-                }
-                
-                currentDrag = null;
+            for (let i = 0; i < listAll.children.length; i++) {
+                leftFriends.push(listAll.children[i]);
             }
         })
     });
