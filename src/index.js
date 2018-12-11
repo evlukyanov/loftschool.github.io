@@ -72,7 +72,7 @@ function main() {
 }
 
 async function initFunc(listAll, listSelected, saveButton, leftInput, rightInput) {
-    VK.init({ apiId: 6774126 });
+    VK.init({ apiId: 6779377 });
     await auth();
 
     let data = await callAPI('friends.get', {'fields': 'first_name, last_name, photo_100'});
